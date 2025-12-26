@@ -1,0 +1,36 @@
+# Folders
+Desktop/
+Documents/
+Downloads/
+Music/
+Pictures/
+Public/
+shared/
+Templates/
+Videos/
+
+# Hidden
+.bash_history
+.cache/
+.config/
+.fehbg
+.gnupg/
+.gtkrc-2.0
+.librewolf/
+.local/
+.mozilla/
+.pki/
+.snes9x/
+.steam/
+.steampath
+.steampid
+.var/
+.Xauthority
+.xsession-errors
+.xsession-errors.old
+.zcompdump
+.zhistory
+.zsh/
+
+# Rules
+*.bkp

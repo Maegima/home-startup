@@ -1,0 +1,57 @@
+## Here is an example for nanorc files.
+##
+syntax "vapor" ".config/kitty/vapor\.conf$"
+## Possible errors and parameters
+## Strings
+icolor white ""(\\.|[^"])*""
+## Comments
+icolor brightblue "^[[:space:]]*#.*$"
+icolor cyan "^[[:space:]]*##.*$"
+## Trailing spaces
+color ,green "[[:space:]]+$"
+
+## Colors
+## Basic colors
+color red       "\<red[[:space:]](foreground)?\>"
+color green     "\<green[[:space:]](foreground)?\>"
+color blue      "\<blue[[:space:]](foreground)?\>"
+color magenta   "\<magenta[[:space:]](foreground)?\>"
+color yellow    "\<yellow[[:space:]](foreground)?\>"
+color cyan      "\<cyan[[:space:]](foreground)?\>"
+color white     "\<white[[:space:]](foreground)?\>"
+color black     "\<black[[:space:]](foreground)?\>"
+## Light/bright colors
+color lightred          "\<(light|bright) red[[:space:]](foreground)?\>"
+color lightgreen        "\<(light|bright) green[[:space:]](foreground)?\>"
+color lightblue         "\<(light|bright) blue[[:space:]](foreground)?\>"
+color lightmagenta      "\<(light|bright) magenta[[:space:]](foreground)?\>"
+color lightyellow       "\<(light|bright) yellow[[:space:]](foreground)?\>"
+color lightcyan         "\<(light|bright) cyan[[:space:]](foreground)?\>"
+color lightwhite        "\<(light|bright) white[[:space:]](foreground)?\>"
+color lightblack        "\<(light|bright) black[[:space:]](foreground)?\>" "\<gr[ea]y[[:space:]](foreground)?\>"
+## 256 colors
+color pink      "\<pink\>"
+color purple    "\<purple\>"
+color mauve     "\<mauve\>"
+color lagoon    "\<lagoon\>"
+color mint      "\<mint\>"
+color lime      "\<lime\>"
+color peach     "\<peach\>"
+color orange    "\<orange\>"
+color latte     "\<latte\>"
+color rosy      "\<rosy\>"
+color beet      "\<beet\>"
+color plum      "\<plum\>"
+color sea       "\<sea\>"
+color sky       "\<sky\>"
+color slate     "\<slate\>"
+color teal      "\<teal\>"
+color sage      "\<sage\>"
+color brown     "\<brown\>"
+color ocher     "\<ocher\>"
+color sand      "\<sand\>"
+color tawny     "\<tawny\>"
+color brick     "\<brick\>"
+color crimson   "\<crimson\>"
+color normal    "\<normal\>"
+
