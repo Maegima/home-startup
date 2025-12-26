@@ -112,6 +112,5 @@ sudo pacman -S networkmanager
 sudo systemctl enable NetworkManager.service
 
 reboot
-
-sudo pacman -S lightdm lightdm-gtk-greeter kitty feh ttf-hack-nerd
+sudo pacman -S xorg-server xorg-xinit xorg-apps lightdm lightdm-gtk-greeter i3-wm i3lock i3status dmenu feh kitty ttf-hack-nerd
 sudo systemctl enable lightdm
