@@ -1,1 +1,2 @@
 xset -b
+setxkbmap -layout br

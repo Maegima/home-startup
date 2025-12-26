@@ -15,7 +15,9 @@ Videos/
 .ansible/
 .cache/
 .cargo/
-.config/
+.config/*
+!.config/i3/
+!.config/kitty/
 .continue/
 .cookiecutter_replay/
 .cookiecutters/
