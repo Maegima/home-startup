@@ -1,0 +1,117 @@
+netInterface=wlan0
+
+#iwctl
+#device list
+#station $netInterface scan
+#station $netInterface get-networks
+#station $netInterface connect SSID
+
+#ping google.com
+
+iwctl --passphrase passphrase station name connect SSID
+
+efivar -l
+
+gdisk /dev/mmcblk1
+gdisk> x
+gdisk> z
+
+cgdisk /dev/mmcblk1
+cgdisk> New
+cgdisk> Default
+cgdisk> 512MiB
+cgdisk> EF00
+cgdisk> boot
+
+cgdisk> New
+cgdisk> Default
+cgdisk> 8GiB
+cgdisk> 8200
+cgdisk> swap
+
+cgdisk> New
+cgdisk> Default
+cgdisk> All
+cgdisk> 8300
+cgdisk> root
+
+cgdisk> Write
+
+mkfs.fat -F32 /dev/mmcblk1p1
+
+mkswap /dev/mmcblk1p2
+swapon /dev/mmcblk1p2
+
+mkfs.ext4 /dev/mmcblk1p3
+mkfs.ext4 /dev/sdb1
+
+lsblk
+
+mount /dev/mmcblk1p3 /mnt
+mkdir /mnt/boot
+mkdir /mnt/home
+mount /dev/mmcblk1p1 /mnt/boot
+mount /dev/sdb1 /mnt/home
+
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
+sudo pacman -Sy pacman-contrib
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
+
+pacstrap -K /mnt base linux linux-firmware base-devel
+genfstab -U -p /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt
+sudo pacman -S nano nano-syntax-highlighting bash-completion
+nano /etc/locale.gen
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+LANG=en_US.UTF-8
+LC_ADDRESS=pt_BR.UTF-8
+LC_IDENTIFICATION=pt_BR.UTF-8
+LC_MEASUREMENT=pt_BR.UTF-8
+LC_MONETARY=pt_BR.UTF-8
+LC_NAME=pt_BR.UTF-8
+LC_NUMERIC=pt_BR.UTF-8
+LC_PAPER=pt_BR.UTF-8
+LC_TELEPHONE=pt_BR.UTF-8
+LC_TIME=pt_BR.UTF-8
+ln -s /usr/share/zoneinfo/Brazil/East > /etc/localtime
+hwclock --systohc --utc
+
+echo <hostname> > /etc/hostname
+
+systemctl enable fstrim.timer # trim support for ssd
+
+nano /etc/pacman.conf
+/etc/pacman.conf> [multilib]
+/etc/pacman.conf> Include = /etc/pacman.d/mirrorlist
+sudo pacman -Sy
+
+passwd
+useradd -m -g users -G wheel,storage,power -s /bin/bash newuser
+passwd newuser
+EDITOR=nano visudo
+/etc/sudoers.tmp> %wheel ALL=(ALL:ALL) ALL
+/etc/sudoers.tmp> Defaults rootpw
+
+mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
+ls /sys/firmware/efi/efivars/
+
+bootctl install
+nano /boot/loader/entries/arch.conf
+/boot/loader/entries/arch.conf> title Arch
+/boot/loader/entries/arch.conf> linux /vmlinuz-linux
+/boot/loader/entries/arch.conf> initrd /initramfs-linux.img
+echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /dev/mmcblk1p3) rw" >> /boot/loader/entries/arch.conf
+
+#Optional dont need
+sudo pacman -S dhcpcd
+sudo systemctl enable dhcpcd@wlan0.service
+#Good to have
+sudo pacman -S networkmanager
+sudo systemctl enable NetworkManager.service
+
+reboot
+
+sudo pacman -S lightdm lightdm-gtk-greeter kitty feh ttf-hack-nerd
+sudo systemctl enable lightdm
