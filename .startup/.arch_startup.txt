@@ -41,7 +41,7 @@ lsblk
 mount /dev/sdX3 /mnt
 mkdir /mnt/boot
 mkdir /mnt/home
-mount /dev/sdX1 /mnt/boot
+mount -o umask=0077 /dev/sdX1 /mnt/boot
 mount /dev/sdY1 /mnt/home
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
@@ -50,48 +50,51 @@ rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
 
 pacstrap -K /mnt base linux linux-firmware base-devel
 genfstab -U -p /mnt >> /mnt/etc/fstab
+echo <hostname> > /mnt/etc/hostname
 
-arch-chroot /mnt
-sudo pacman -S nano nano-syntax-highlighting bash-completion git
+arch-chroot -S /mnt
+sudo pacman -S nano nano-syntax-highlighting bash-completion less git
 cd /home
 git clone https://github.com/maegima/home-startup.git
+
+bootctl install
+# select root partition /dev/sdX3
+.startup/bootloader.sh /dev/sdX3 > /boot/loader/entries/arch.conf
+
+sudo pacman -S networkmanager
+systemctl enable NetworkManager.service
+systemctl enable fstrim.timer # trim support for ssd
+
+passwd
+
+# exit chroot
+exit
+umount -R /mnt
+reboot
+
+nmcli d wifi connect SSID --ask
+
 nano /etc/locale.gen
 cp /home/home-startup/.startup/locale.conf /etc/locale.conf
 locale-gen
 ln -s /usr/share/zoneinfo/Brazil/East /etc/localtime
 hwclock --systohc --utc
 
-echo <hostname> > /etc/hostname
-
-systemctl enable fstrim.timer # trim support for ssd
-
-nano /etc/pacman.conf
-/etc/pacman.conf> [multilib]
-/etc/pacman.conf> Include = /etc/pacman.d/mirrorlist
-sudo pacman -Sy
-
-passwd
 useradd -m -g users -G wheel,storage,power -s /bin/bash newuser
 passwd newuser
 EDITOR=nano visudo
 /etc/sudoers.tmp> %wheel ALL=(ALL:ALL) ALL
 /etc/sudoers.tmp> Defaults rootpw
 
-mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
-ls /sys/firmware/efi/efivars/
-
-.startup/bootloader.sh /dev/sdX1 > /boot/loader/entries/arch.conf
-
-umount -R /mnt
-reboot
+nano /etc/pacman.conf
+/etc/pacman.conf> [multilib]
+/etc/pacman.conf> Include = /etc/pacman.d/mirrorlist
+sudo pacman -Sy
 
 #Optional dont need
 sudo pacman -S dhcpcd
 sudo systemctl enable dhcpcd@wlan0.service
-#Good to have
-sudo pacman -S networkmanager
-sudo systemctl enable NetworkManager.service
 
 reboot
-sudo pacman -S xorg-server xorg-xinit xorg-apps lightdm lightdm-gtk-greeter i3-wm i3lock i3status dmenu feh kitty ttf-hack-nerd
+sudo pacman -S xorg-server xorg-xinit xorg-apps lightdm lightdm-gtk-greeter i3-wm i3lock i3status dmenu feh picom kitty ttf-hack-nerd
 sudo systemctl enable lightdm
