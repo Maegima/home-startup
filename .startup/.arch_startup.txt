@@ -52,21 +52,13 @@ pacstrap -K /mnt base linux linux-firmware base-devel
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt
-sudo pacman -S nano nano-syntax-highlighting bash-completion
+sudo pacman -S nano nano-syntax-highlighting bash-completion git
+cd /home
+git clone https://github.com/maegima/home-startup.git
 nano /etc/locale.gen
+cp /home/home-startup/.startup/locale.conf /etc/locale.conf
 locale-gen
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-LANG=en_US.UTF-8
-LC_ADDRESS=pt_BR.UTF-8
-LC_IDENTIFICATION=pt_BR.UTF-8
-LC_MEASUREMENT=pt_BR.UTF-8
-LC_MONETARY=pt_BR.UTF-8
-LC_NAME=pt_BR.UTF-8
-LC_NUMERIC=pt_BR.UTF-8
-LC_PAPER=pt_BR.UTF-8
-LC_TELEPHONE=pt_BR.UTF-8
-LC_TIME=pt_BR.UTF-8
-ln -s /usr/share/zoneinfo/Brazil/East > /etc/localtime
+ln -s /usr/share/zoneinfo/Brazil/East /etc/localtime
 hwclock --systohc --utc
 
 echo <hostname> > /etc/hostname
@@ -88,12 +80,7 @@ EDITOR=nano visudo
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
 ls /sys/firmware/efi/efivars/
 
-bootctl install
-nano /boot/loader/entries/arch.conf
-/boot/loader/entries/arch.conf> title Arch
-/boot/loader/entries/arch.conf> linux /vmlinuz-linux
-/boot/loader/entries/arch.conf> initrd /initramfs-linux.img
-echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /dev/mmcblk1p3) rw" >> /boot/loader/entries/arch.conf
+.startup/bootloader.sh /dev/sdX1 > /boot/loader/entries/arch.conf
 
 umount -R /mnt
 reboot
