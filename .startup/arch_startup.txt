@@ -44,28 +44,17 @@ mkdir /mnt/home
 mount -o umask=0077 /dev/sdX1 /mnt/boot
 mount /dev/sdY1 /mnt/home
 
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
-sudo pacman -Sy pacman-contrib
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
-
 pacstrap -K /mnt base linux linux-firmware base-devel
 genfstab -U -p /mnt >> /mnt/etc/fstab
 echo <hostname> > /mnt/etc/hostname
 
 arch-chroot -S /mnt
-sudo pacman -S nano nano-syntax-highlighting bash-completion less git
-cd /home
-git clone https://github.com/maegima/home-startup.git
+pacman -S git
+git clone https://github.com/maegima/home-startup.git /root/startup
 
-bootctl install
-# select root partition /dev/sdX3
-.startup/bootloader.sh /dev/sdX3 > /boot/loader/entries/arch.conf
+/root/startup/.startup/scripts/initso.so <hostname> <username>
 
-sudo pacman -S networkmanager
-systemctl enable NetworkManager.service
-systemctl enable fstrim.timer # trim support for ssd
-
-passwd
+/root/startup/.startup/scripts/bootloader.sh /dev/sdX3
 
 # exit chroot
 exit
@@ -74,27 +63,7 @@ reboot
 
 nmcli d wifi connect SSID --ask
 
-nano /etc/locale.gen
-cp /home/home-startup/.startup/locale.conf /etc/locale.conf
-locale-gen
-ln -s /usr/share/zoneinfo/Brazil/East /etc/localtime
-hwclock --systohc --utc
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
+sudo pacman -Sy pacman-contrib
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
 
-useradd -m -g users -G wheel,storage,power -s /bin/bash newuser
-passwd newuser
-EDITOR=nano visudo
-/etc/sudoers.tmp> %wheel ALL=(ALL:ALL) ALL
-/etc/sudoers.tmp> Defaults rootpw
-
-nano /etc/pacman.conf
-/etc/pacman.conf> [multilib]
-/etc/pacman.conf> Include = /etc/pacman.d/mirrorlist
-sudo pacman -Sy
-
-#Optional dont need
-sudo pacman -S dhcpcd
-sudo systemctl enable dhcpcd@wlan0.service
-
-reboot
-sudo pacman -S xorg-server xorg-xinit xorg-apps lightdm lightdm-gtk-greeter i3-wm i3lock i3status dmenu feh picom kitty ttf-hack-nerd
-sudo systemctl enable lightdm
