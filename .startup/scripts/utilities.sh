@@ -12,3 +12,6 @@ makepkg -si
 git clone https://aur.archlinux.org/vscodium-bin.git
 cd vscodium-bin
 makepkg -si
+
+# Development
+sudo pacman -S wxwidgets-gtk3

@@ -8,8 +8,9 @@ if [ -z "$STARTUP_ROOT" ] ; then
     STARTUP_ROOT="$HOME/startup"
 fi
 
-pacman -S nano nano-syntax-highlighting bash-completion less networkmanager
+pacman -S nano nano-syntax-highlighting bash-completion less networkmanager bluez bluez-utils
 systemctl enable NetworkManager.service
+systemctl enable bluetooth.service
 systemctl enable fstrim.timer # trim support for ssd
 
 echo "hostname set to '$machine'"
