@@ -68,10 +68,13 @@ bindsym $mod+q kill
 bindsym $mod+r exec --no-startup-id dmenu_run
 
 # start nemo
-bindsym $mod+d exec nemo
+bindsym $mod+n exec nemo
 
 # start librewolf
 bindsym $mod+b exec librewolf
+
+# start codium
+bindsym $mod+c exec codium
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -142,6 +145,9 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
+bindsym $mod+d workspace next
+bindsym $mod+l workspace prev
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -153,6 +159,17 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# --- VSCodium on the left ---
+for_window [class="VSCodium"] move to workspace 2
+for_window [class="VSCodium"] focus
+for_window [class="VSCodium"] split h
+
+# --- Terminal on the right ---
+for_window [class="kitty-code"] move to workspace 2
+for_window [class="kitty-code"] split v
+for_window [class="kitty-code"] focus parent
+for_window [class="kitty-code"] resize set width 40 ppt
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
