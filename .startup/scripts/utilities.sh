@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo pacman -S orchis-theme xed nemo tumbler gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva
+sudo pacman -S orchis-theme xed nemo tumbler ffmpegthumbnailer gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva vlc vlc-plugin-ffmpeg vlc-plugin-mpeg2
 
 git clone https://aur.archlinux.org/icoextract.git
 cd icoextract
