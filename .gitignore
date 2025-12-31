@@ -10,6 +10,9 @@ shared/
 Templates/
 Videos/
 
+# Files
+background.png
+
 # Hidden Folders
 .altera.quartus/
 .ansible/
@@ -62,6 +65,7 @@ Videos/
 .nvidia-settings-rc
 .pgpass
 .psql_history
+.pulse-cookie
 .python_history
 .steampath
 .steampid

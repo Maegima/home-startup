@@ -8,7 +8,7 @@ fi
 PARTUUID=$(blkid -s PARTUUID -o value $1)
 entry="/boot/loader/entries/arch.conf"
 bootctl install
-echo "Writing entry '$file'"
+echo "Writing entry '$entry'"
 echo "title Arch"                         >  $entry
 echo "linux /vmlinuz-linux"               >> $entry
 echo "initrd /initramfs-linux.img"        >> $entry

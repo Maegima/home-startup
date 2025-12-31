@@ -26,7 +26,7 @@ cp /etc/locale.gen /etc/locale.gen.bkp
 printf "\n## Written by initso\n"   >> /etc/locale.gen
 printf "en_US.UTF-8 UTF-8\n"        >> /etc/locale.gen
 printf "pt_BR.UTF-8 UTF-8\n"        >> /etc/locale.gen
-cp $STARTUP_ROOT/configuration/locale.conf /etc/locale.conf
+cp $STARTUP_ROOT/.startup/configuration/locale.conf /etc/locale.conf
 locale-gen
 ln -s /usr/share/zoneinfo/Brazil/East /etc/localtime
 hwclock --systohc --utc
@@ -39,7 +39,7 @@ printf "Include = /etc/pacman.d/mirrorlist\n" >> /etc/pacman.conf
 pacman -Sy
 
 echo "Editing sudoers file"
-cp /etc/sudoers > /etc/sudoers.bkp
-printf "\n## Written by initso\n"   | EDITOR='tee -a' visudo
-printf "%wheel ALL=(ALL:ALL) ALL\n" | EDITOR='tee -a' visudo
-printf "Defaults rootpw\n"          | EDITOR='tee -a' visudo
+cp /etc/sudoers /etc/sudoers.bkp
+printf "\n## Written by initso\n"    | EDITOR='tee -a' visudo
+printf "%%wheel ALL=(ALL:ALL) ALL\n" | EDITOR='tee -a' visudo
+printf "Defaults rootpw\n"           | EDITOR='tee -a' visudo
