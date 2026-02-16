@@ -76,6 +76,9 @@ bindsym $mod+b exec librewolf
 # start codium
 bindsym $mod+c exec codium
 
+# start lutris
+bindsym $mod+l exec lutris
+
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -146,7 +149,7 @@ bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
 bindsym $mod+d workspace next
-bindsym $mod+l workspace prev
+bindsym $mod+semicolon workspace prev
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
