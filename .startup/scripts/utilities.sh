@@ -13,5 +13,7 @@ git clone https://aur.archlinux.org/vscodium-bin.git
 cd vscodium-bin
 makepkg -si
 
+sudo pacman -S strawberry kvantum
+
 # Development
 sudo pacman -S wxwidgets-gtk3
