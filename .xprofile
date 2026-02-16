@@ -1,2 +1,8 @@
 xset -b
+xset s 3600 3600
+xset -dpms
+#xset s off -dpms
 setxkbmap -layout us
+#xrandr --output DP-0 --mode 1920x1080 --rate 144 --preferred --primary
+#xrandr --output HDMI-0 --mode 1920x1080 --rate 74
+#xrandr --output HDMI-1 --mode 1920x1080 --rate 144

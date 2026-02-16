@@ -80,3 +80,4 @@ background.png
 .zhistory
 # Rules
 *.bkp
+*.out
