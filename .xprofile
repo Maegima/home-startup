@@ -1,6 +1,4 @@
-xset -b
-xset s 3600 3600
-xset -dpms
+xset -b s 3600 3600 -dpms
 #xset s off -dpms
 setxkbmap -layout us
 #xrandr --output DP-0 --mode 1920x1080 --rate 144 --preferred --primary
