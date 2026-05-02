@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BUILD_DIR="~/.startup/build"
+BUILD_DIR="$HOME/.startup/build"
 
 sudo pacman -S wine wine-gecko wine-mono winetricks vulkan-tools vulkan-icd-loader lib32-vulkan-icd-loader gnutks antimicrox gamemode
 

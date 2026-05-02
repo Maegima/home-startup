@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BUILD_DIR="~/.startup/build"
+BUILD_DIR="$HOME/.startup/build"
 
 sudo pacman -S orchis-theme xed nemo ffmpegthumbnailer gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva vlc vlc-plugin-ffmpeg vlc-plugin-mpeg2
 
