@@ -3,13 +3,9 @@ set -e
 
 BUILD_DIR="$HOME/.startup/build"
 
-sudo pacman -S orchis-theme xed nemo ffmpegthumbnailer gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva vlc vlc-plugin-ffmpeg vlc-plugin-mpeg2
+sudo pacman -S orchis-theme xed nemo ffmpegthumbnailer icoextract gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva vlc vlc-plugin-ffmpeg vlc-plugin-mpeg2
 
 mkdir -p $BUILD_DIR
-
-git clone https://aur.archlinux.org/icoextract.git $BUILD_DIR/icoextract
-cd $BUILD_DIR/icoextract
-makepkg -si
 
 git clone https://aur.archlinux.org/librewolf-bin.git $BUILD_DIR/librewolf-bin
 cd $BUILD_DIR/librewolf-bin
