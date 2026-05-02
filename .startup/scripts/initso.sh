@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 machine=$1
 user=$2
 if [ $# -lt 2 ]; then

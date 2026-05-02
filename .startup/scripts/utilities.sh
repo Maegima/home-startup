@@ -1,16 +1,22 @@
 #!/bin/bash
+set -e
+
+BUILD_DIR="~/.startup/build"
+
 sudo pacman -S orchis-theme xed nemo ffmpegthumbnailer gvfs lxappearance vlc vlc-plugin-mpeg2 vlc-plugin-ffmpeg libva vlc vlc-plugin-ffmpeg vlc-plugin-mpeg2
 
-git clone https://aur.archlinux.org/icoextract.git
-cd icoextract
+mkdir -p $BUILD_DIR
+
+git clone https://aur.archlinux.org/icoextract.git $BUILD_DIR/icoextract
+cd $BUILD_DIR/icoextract
 makepkg -si
 
-git clone https://aur.archlinux.org/librewolf-bin.git
-cd librewolf-bin
+git clone https://aur.archlinux.org/librewolf-bin.git $BUILD_DIR/librewolf-bin
+cd $BUILD_DIR/librewolf-bin
 makepkg -si
 
-git clone https://aur.archlinux.org/vscodium-bin.git
-cd vscodium-bin
+git clone https://aur.archlinux.org/vscodium-bin.git $BUILD_DIR/vscodium-bin
+cd $BUILD_DIR/vscodium-bin
 makepkg -si
 
 sudo pacman -S strawberry kvantum

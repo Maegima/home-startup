@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+
+BUILD_DIR="~/.startup/build"
 
 sudo pacman -S wine wine-gecko wine-mono winetricks vulkan-tools vulkan-icd-loader lib32-vulkan-icd-loader gnutks antimicrox gamemode
 
@@ -6,8 +9,9 @@ sudo pacman -S lib32-gnutls lib32-libldap lib32-mpg123 lib32-openal lib32-v4l-ut
 
 sudo pacman -S lutris steam
 
-git clone https://aur.archlinux.org/honkers-launcher-bin.git
-cd honkers-launcher-bin
+mkdir -p $BUILD_DIR
+git clone https://aur.archlinux.org/honkers-launcher-bin.git $BUILD_DIR/honkers-launcher-bin
+cd $BUILD_DIR/honkers-launcher-bin
 makepkg -si
 
 

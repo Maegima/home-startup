@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 sudo pacman -S pipewire pipewire-alsa pipewire-pulse pipewire-jack
 sudo pacman -S pavucontrol pasystray pamixer
 systemctl --user enable pipewire-pulse.service
