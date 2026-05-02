@@ -7,6 +7,6 @@ sudo pacman -S xorg-server xorg-xinit xorg-apps lightdm lightdm-gtk-greeter i3-w
 sudo systemctl enable lightdm
 
 mkdir -p $BUILD_DIR
-git clone https://aur-archlinux.org/xob.git $BUILD_DIR/xob
+git clone https://aur.archlinux.org/xob.git $BUILD_DIR/xob
 cd $BUILD_DIR/xob
 makepkg -si
