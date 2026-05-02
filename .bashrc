@@ -110,6 +110,8 @@ shopt -s histappend
 export EDITOR=nano
 export VISUAL=nano
 export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 
 if [ -f ~/.aliases ]; then
 	. ~/.aliases

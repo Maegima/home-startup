@@ -38,6 +38,7 @@ background.png
 .nv/
 .password-store/
 .pki/
+.sentry-native/
 .snes9x/
 .sonar/
 .ssh/
