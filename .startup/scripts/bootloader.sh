@@ -1,5 +1,3 @@
-machine=$1
-user=$2
 if [ $# -lt 1 ]; then
     echo "you need to specify the root <device> ex.: '/dev/sda1'"
     exit 1

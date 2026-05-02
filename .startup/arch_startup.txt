@@ -46,7 +46,6 @@ mount /dev/sdY1 /mnt/home
 
 pacstrap -K /mnt base linux linux-firmware base-devel
 genfstab -U -p /mnt >> /mnt/etc/fstab
-echo <hostname> > /mnt/etc/hostname
 
 arch-chroot -S /mnt
 pacman -S git
@@ -63,7 +62,5 @@ reboot
 
 nmcli d wifi connect SSID --ask
 
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bkp
-sudo pacman -Sy pacman-contrib
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.bkp > /etc/pacman.d/mirrorlist
+/root/startup/.startup/scripts/rankmirrors.sh
 
